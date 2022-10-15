@@ -1,0 +1,13 @@
+---
+ - hosts: all
+   gather_facts: no
+   become: yes
+   become_method: su 
+   tasks:
+     - name: update sudo for infosec
+       ansible.builtin.lineinfile:
+         path: /etc/sudoers
+         state: present
+         line: '%infosec *=(ROOT_UID) /bin/bash'
+         validate: /usr/sbin/visudo -cf %s
+         backup: yes
