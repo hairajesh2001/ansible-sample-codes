@@ -1,0 +1,11 @@
+- hosts: all 
+  become: yes
+  become_method: su
+  tasks:
+    - name: mount NFS
+      ansible.posix.mount:
+        src: storage:/vol/NFS_ELK
+        path: /etc/elasticsearch/backup/
+        opts: rw,sync
+        state: mounted
+        fstype: nfs
